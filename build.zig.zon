@@ -1,0 +1,25 @@
+.{
+    .name = .miniz,
+    .version = "3.0.2",
+    .fingerprint = 0xa708528e92544c1a, // Changing this has security and trust implications.
+    .minimum_zig_version = "0.14.0",
+    .dependencies = .{
+        .miniz = .{
+            .url = "https://github.com/richgel999/miniz/archive/refs/tags/3.0.2.tar.gz",
+            .hash = "N-V-__8AAERZCACWezRV1bLpUKNG2scSJbJdweF1Id_3JKc7",
+        },
+        .testfile = .{
+            // TLS fails for cdn.kernel.org so we use a mirror.
+            // .url = "https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.8.11.tar.gz",
+            .url = "https://mirrors.edge.kernel.org/pub/linux/kernel/v4.x/linux-4.8.11.tar.gz",
+            .hash = "N-V-__8AAGOqRybNrVhgFBhHRmXCFkIGsxu5JOiGeeAyzm2Y",
+            .lazy = true,
+        },
+    },
+    .paths = .{
+        "build.zig.zon",
+        "build.zig",
+        "LICENSE",
+        "README.md",
+    },
+}

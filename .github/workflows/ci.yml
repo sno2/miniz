@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: mlugg/setup-zig@v2
+        with:
+          version: latest
+
+      - name: Check Formatting
+        run: zig fmt --ast-check --check .
+
+      - name: Build (x86_64-windows)
+        run: zig build -Dtarget=x86_64-windows-gnu -Denable_examples
+
+      - name: Build (aarch64-windows)
+        run: zig build -Dtarget=aarch64-windows-gnu -Denable_examples
+
+      - name: Build (x86-windows)
+        run: zig build -Dtarget=x86-windows-gnu -Denable_examples
+
+      - name: Build (x86_64-macos)
+        run: zig build -Dtarget=x86_64-macos-none -Denable_examples
+
+      - name: Build (aarch64-macos)
+        run: zig build -Dtarget=aarch64-macos-none -Denable_examples
+
+      - name: Build (x86_64-linux)
+        run: zig build -Dtarget=x86_64-linux-musl -Denable_examples
+
+      - name: Build (aarch64-linux)
+        run: zig build -Dtarget=aarch64-linux-musl -Denable_examples
+
+      - name: Build (arm-linux)
+        run: zig build -Dtarget=arm-linux-musleabihf -Denable_examples
+
+      - name: Build (riscv64-linux)
+        run: zig build -Dtarget=riscv64-linux-musl -Denable_examples
+
+      - name: Build (powerpc64le-linux)
+        run: zig build -Dtarget=powerpc64le-linux-musl -Denable_examples
+
+      - name: Build (x86-linux)
+        run: zig build -Dtarget=x86-linux-musl -Denable_examples
+
+      - name: Build (loongarch64-linux)
+        run: zig build -Dtarget=loongarch64-linux-musl -Denable_examples
+
+      - name: Build (s390x-linux)
+        run: zig build -Dtarget=s390x-linux-musl -Denable_examples
+
+      - name: Build (wasm32-wasi)
+        run: zig build -Dtarget=wasm32-wasi -Denable_examples
+
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: mlugg/setup-zig@v2
+        with:
+          version: latest
+
+      - name: Test
+        run: zig build test -Denable_tests -Denable_examples
+
+      - name: Test (ReleaseSafe)
+        run: zig build test -Denable_tests -Denable_examples -Doptimize=ReleaseSafe
