@@ -1,18 +1,16 @@
 .{
     .name = .miniz,
-    .version = "3.0.2",
+    .version = "3.1.0",
     .fingerprint = 0xa708528e92544c1a, // Changing this has security and trust implications.
     .minimum_zig_version = "0.14.0",
     .dependencies = .{
         .miniz = .{
-            .url = "https://github.com/richgel999/miniz/archive/refs/tags/3.0.2.tar.gz",
-            .hash = "N-V-__8AAERZCACWezRV1bLpUKNG2scSJbJdweF1Id_3JKc7",
+            .url = "https://github.com/richgel999/miniz/archive/c883286f1a6443720e7705450f59e579a4bbb8e2.tar.gz",
+            .hash = "N-V-__8AAINZFgB-AsYGrEPUAvCn1wwi-Tjyy8UNjHH3q33V",
         },
         .testfile = .{
-            // TLS fails for cdn.kernel.org so we use a mirror.
-            // .url = "https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.8.11.tar.gz",
-            .url = "https://mirrors.edge.kernel.org/pub/linux/kernel/v4.x/linux-4.8.11.tar.gz",
-            .hash = "N-V-__8AAGOqRybNrVhgFBhHRmXCFkIGsxu5JOiGeeAyzm2Y",
+            .url = "https://curl.se/download/curl-8.14.0.tar.gz",
+            .hash = "N-V-__8AADAWTgE-Mgg9fqoy7Kq3hUJkiAg0ayL_035r-TV2",
             .lazy = true,
         },
     },

@@ -1,6 +1,6 @@
 const std = @import("std");
 
-const version: std.SemanticVersion = .{ .major = 3, .minor = 0, .patch = 2 };
+const version: std.SemanticVersion = .{ .major = 3, .minor = 1, .patch = 0 };
 
 pub fn build(b: *std.Build) !void {
     const target = b.standardTargetOptions(.{});
@@ -112,10 +112,9 @@ pub fn build(b: *std.Build) !void {
                 if (maybe_before) |before| run_test.step.dependOn(before);
                 maybe_before = &run_test.step;
                 run_test.setName(b.fmt("miniz_tester {s}", .{configuration}));
-                run_test.setCwd(testfile.path("."));
                 run_test.addArgs(configuration);
                 run_test.addArg("a");
-                run_test.addDirectoryArg(testfile.path("."));
+                run_test.addDirectoryArg(testfile.path("src"));
                 run_test.expectExitCode(0);
 
                 test_step.dependOn(&run_test.step);
