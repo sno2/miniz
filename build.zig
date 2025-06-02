@@ -106,8 +106,11 @@ pub fn build(b: *std.Build) !void {
                 &.{ "-v", "-a" },
             };
 
+            var maybe_before: ?*std.Build.Step = null;
             for (configurations) |configuration| {
                 const run_test = b.addRunArtifact(miniz_tester);
+                if (maybe_before) |before| run_test.step.dependOn(before);
+                maybe_before = &run_test.step;
                 run_test.setName(b.fmt("miniz_tester {s}", .{configuration}));
                 run_test.setCwd(testfile.path("."));
                 run_test.addArgs(configuration);
